@@ -13,7 +13,7 @@ function App() {
   },[])
  const fetchimage=()=>{
     const apiroot='https://api.unsplash.com'
-    axios.get(`${apiroot}/photos/random?client_id=lPq7gcPbYRD8-V7JdMCEi-5IFTteahdidYeZ3CYAKD8&count=20`)
+    axios.get(`${apiroot}/photos/random?client_id=QmydkNW4mM57SKTLUzViPAJAAUshB2mKiMuHzUGeKVc&count=20`)
     .then(res=>{
       setPhotos([...photos,...res.data])
 
