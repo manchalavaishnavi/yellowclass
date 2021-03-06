@@ -1,6 +1,6 @@
 .photoscollection{
   column-gap: 0 px;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
   grid-auto-rows: minmax(50px, auto);
   padding: 0 50px;
   column-count: 5;
