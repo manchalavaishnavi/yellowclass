@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import './App.css';
-import Loader from './components/Loader'
 import Infinitescroll from 'react-infinite-scroll-component'
 import Lightbox from "rhino-react-image-lightbox-rotate";
 function App() {
@@ -14,7 +13,7 @@ function App() {
   },[])
  const fetchimage=()=>{
     const apiroot='https://api.unsplash.com'
-    axios.get(`${apiroot}/photos/random?client_id=HmLI6LSiZiSUleI2iA5tZuRvoWxIU80LamG0cFsFzTY&count=15`)
+    axios.get(`${apiroot}/photos/random?client_id=lPq7gcPbYRD8-V7JdMCEi-5IFTteahdidYeZ3CYAKD8&count=20`)
     .then(res=>{
       setPhotos([...photos,...res.data])
 
@@ -31,12 +30,11 @@ function App() {
   if (small){
     return (
     
-      <div className="image-grid" style={{ marginTop: "30px" }}>
+      <div className="image-grid" >
         <Infinitescroll
         dataLength={photos.length}
         next={fetchimage}
         hasMore={true}
-        loader={<Loader />}
         >
         <div className='photoscollection'>
         
