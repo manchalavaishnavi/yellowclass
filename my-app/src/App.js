@@ -7,15 +7,16 @@ function App() {
   const [photos,setPhotos]=useState([])
   const [small,setSmall]=useState(true)
   const [photoindex,setPhotoindex]=useState(0)
-
+  console.log(photos)
   useEffect(()=>{
     fetchimage()
   },[])
  const fetchimage=()=>{
     const apiroot='https://api.unsplash.com'
-    axios.get(`${apiroot}/photos/random?client_id=QmydkNW4mM57SKTLUzViPAJAAUshB2mKiMuHzUGeKVc&count=20`)
+    axios.get(`${apiroot}/photos/random?client_id=8GHg7v0Zj1XmHnaYt1OfE1oO4QvUU9AHSomrfQmq-wg&count=20`)
     .then(res=>{
       setPhotos([...photos,...res.data])
+      
 
       
     })
@@ -26,9 +27,11 @@ function App() {
     console.log(photos[photoindex])
     setSmall(!small)
   }
+  
 
   if (small){
     return (
+      
     
       <div className="image-grid" >
         <Infinitescroll
@@ -40,7 +43,10 @@ function App() {
         
         {
         photos.map((photo,id)=>(
+          <div key={id}>
           <img src={photo.urls.thumb} alt='' key={id} onClick={() => indexhandler(id)}  />
+          </div>
+
   
         ))}
       </div>
