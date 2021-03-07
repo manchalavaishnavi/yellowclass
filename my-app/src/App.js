@@ -3,23 +3,27 @@ import axios from 'axios'
 import './App.css';
 import Infinitescroll from 'react-infinite-scroll-component'
 import Lightbox from "rhino-react-image-lightbox-rotate";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 function App() {
   const [photos,setPhotos]=useState([])
   const [small,setSmall]=useState(true)
   const [photoindex,setPhotoindex]=useState(0)
-  console.log(photos)
+
+  
   useEffect(()=>{
     fetchimage()
+
   },[])
  const fetchimage=()=>{
     const apiroot='https://api.unsplash.com'
-    axios.get(`${apiroot}/photos/random?client_id=8GHg7v0Zj1XmHnaYt1OfE1oO4QvUU9AHSomrfQmq-wg&count=20`)
+    axios.get(`${apiroot}/photos/random?client_id=hpEazxtfqpHYLliFfQjL_7K-GeldwRtejClQ8gSSFFo&count=15`)
     .then(res=>{
       setPhotos([...photos,...res.data])
       
 
       
     })
+    console.log(photos)
   }
   const indexhandler=(id)=>{
     console.log(id)
@@ -43,8 +47,18 @@ function App() {
         
         {
         photos.map((photo,id)=>(
-          <div key={id}>
-          <img src={photo.urls.thumb} alt='' key={id} onClick={() => indexhandler(id)}  />
+          <div key={id} className='imgcontainer'>
+            
+          <LazyLoadImage
+          effect="blur"
+            src={photo.urls.thumb} 
+            alt='' 
+            key={id} 
+            onClick={() => indexhandler(id)}
+
+            />
+          
+          
           </div>
 
   
@@ -61,6 +75,7 @@ function App() {
     );
   
   }else{
+    console.log(photoindex)
     return (
       <Lightbox
       mainSrc={photos[photoindex].urls.thumb}
@@ -74,7 +89,9 @@ function App() {
         
         setPhotoindex((photoindex + 1) % photos.length)
       }
+
     />
+    
     )
 
   }

@@ -1,11 +1,21 @@
 .photoscollection{
-  padding:0 90;
   column-count: auto;
-  padding: 0 40px;
+  padding:40px;
   column-width: 200px;
-  column-gap: 5px;
+  column-gap: 30px;
 }
 
 .image-grid{
   margin-top: 30px;
+}
+.imgcontainer{
+  overflow: hidden;
+  padding:9px
+}
+.imgcontainer img{
+  transition: all 0.3s ease-out;
+  cursor:pointer;
+}
+.imgcontainer img:hover{
+  transform: scale(1.2);
 }
