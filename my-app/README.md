@@ -1,5 +1,5 @@
 steps to how to use  this project
-1.Do npm install to install all the dependencies.
+1. go to my-app folder and do npm install to install all the dependencies.
 2.all the images are arranged in Masonry format 
 3.onclick of image we can open the image in another component it has
    1.left arrow button to view previous image
