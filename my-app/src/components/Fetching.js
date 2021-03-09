@@ -3,6 +3,7 @@ import axios from 'axios'
 import Infinitescroll from 'react-infinite-scroll-component'
 import Lightbox from "rhino-react-image-lightbox-rotate";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import './fetch.css'
 class Fetching extends React.Component{
     constructor(){
         super()
