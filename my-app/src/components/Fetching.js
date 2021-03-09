@@ -25,11 +25,8 @@ class Fetching extends React.Component{
 
       
     })
-    console.log(this.state.photos)
   }
   indexhandler=(id)=>{
-    console.log(id)
-    console.log(this.state.photoindex)
     this.setState({photoindex:id})
     this.setState({small:!this.state.small})
   }
