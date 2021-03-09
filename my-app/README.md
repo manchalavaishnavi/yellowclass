@@ -8,7 +8,7 @@ steps to how to use  this project
    4.zoom in button
    5.zoom out button
    6.rotate image
-4.lazyloadimage component is used for to increase the efficiency of loading the images
+4.lazyloadimage component is used  to increase the efficiency of loading the images
 
 
       
