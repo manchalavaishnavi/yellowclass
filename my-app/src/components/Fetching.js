@@ -7,7 +7,6 @@ function Fetching() {
   const [photos,setPhotos]=useState([])
   const [small,setSmall]=useState(true)
   const [photoindex,setPhotoindex]=useState(0)
-
   
   useEffect(()=>{
     fetchimage()
@@ -76,20 +75,20 @@ function Fetching() {
   }else{
     console.log(photoindex)
     return (
-      <Lightbox
-      mainSrc={photos[photoindex].urls.thumb}
-      nextSrc={photos[(photoindex + 1) % photos.length]}
-      prevSrc={photos[(photoindex + photos.length - 1) % photos.length]}
-      onCloseRequest={() => setSmall(!small)}
-      onMovePrevRequest={() =>
-        setPhotoindex((photoindex + photos.length - 1) % photos.length)
-      }
-      onMoveNextRequest={() =>
-        
-        setPhotoindex((photoindex + 1) % photos.length)
-      }
-
-    />
+        <Lightbox
+        mainSrc={photos[photoindex].urls.thumb}
+        nextSrc={photos[(photoindex + 1) % photos.length]}
+        prevSrc={photos[(photoindex + photos.length - 1) % photos.length]}
+        onCloseRequest={() => setSmall(!small)}
+        onMovePrevRequest={() =>
+          setPhotoindex((photoindex + photos.length - 1) % photos.length)
+        }
+        onMoveNextRequest={() =>
+          
+          setPhotoindex((photoindex + 1) % photos.length)
+        }
+  
+      />
     
     )
 
