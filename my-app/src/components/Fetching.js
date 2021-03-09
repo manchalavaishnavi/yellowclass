@@ -1,100 +1,104 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import axios from 'axios'
 import Infinitescroll from 'react-infinite-scroll-component'
 import Lightbox from "rhino-react-image-lightbox-rotate";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-function Fetching() {
-  const [photos,setPhotos]=useState([])
-  const [small,setSmall]=useState(true)
-  const [photoindex,setPhotoindex]=useState(0)
-  
-  useEffect(()=>{
-    fetchimage()
-
-  },[])
- const fetchimage=()=>{
-    const apiroot='https://api.unsplash.com'
-    axios.get(`${apiroot}/photos/random?client_id=zWISo74-6Sa5pdZFgHssyjmEFk6292rr-pv9jLZTI5A&count=15`)
-    .then(res=>{
-      setPhotos([...photos,...res.data])
+class Fetching extends React.Component{
+    constructor(){
+        super()
+        this.state={
+            photos:[],
+            small:true,
+            photoindex:0
+        }
+    }
+    componentDidMount(){
+        this.fetchimage()
+    }
+    fetchimage=()=>{
+        const apiroot='https://api.unsplash.com'
+        axios.get(`${apiroot}/photos/random?client_id=zWISo74-6Sa5pdZFgHssyjmEFk6292rr-pv9jLZTI5A&count=15`)
+        .then(res=>{
+      this.setState({photos:[...this.state.photos,...res.data]})
       
 
       
     })
-    console.log(photos)
+    console.log(this.state.photos)
   }
-  const indexhandler=(id)=>{
+  indexhandler=(id)=>{
     console.log(id)
-    setPhotoindex(id)
-    console.log(photos[photoindex])
-    setSmall(!small)
+    console.log(this.state.photoindex)
+    this.setState({photoindex:id})
+    this.setState({small:!this.state.small})
   }
-  
-
-  if (small){
-    return (
-      
-    
-      <div className="image-grid" >
-        <Infinitescroll
-        dataLength={photos.length}
-        next={fetchimage}
-        hasMore={true}
-        >
-        <div className='photoscollection'>
+  render(){
+    if (this.state.small){
+        return (
+          
         
-        {
-        photos.map((photo,id)=>(
-          <div key={id} className='imgcontainer'>
+          <div className="image-grid" >
+            <Infinitescroll
+            dataLength={this.state.photos.length}
+            next={this.fetchimage}
+            hasMore={true}
+            >
+            <div className='photoscollection'>
             
-          <LazyLoadImage
-          effect="blur"
-            src={photo.urls.thumb} 
-            alt='' 
-            key={id} 
-            onClick={() => indexhandler(id)}
-
-            />
-          
-          
+            {
+            this.state.photos.map((photo,id)=>(
+              <div key={id} className='imgcontainer'>
+                
+              <LazyLoadImage
+              effect="blur"
+                src={photo.urls.thumb} 
+                alt='' 
+                key={id} 
+                onClick={() => this.indexhandler(id)}
+    
+                />
+              
+              
+              </div>
+    
+      
+            ))}
           </div>
-
-  
-        ))}
-      </div>
+        
+      
+      
+            </Infinitescroll>
+      
+      
+          </div>
+      
+        );
+      
+      }else{
+        console.log(this.state.photoindex)
+        return (
+            <Lightbox
+            mainSrc={this.state.photos[this.state.photoindex].urls.thumb}
+            nextSrc={this.state.photos[(this.state.photoindex + 1) % this.state.photos.length]}
+            prevSrc={this.state.photos[(this.state.photoindex + this.state.photos.length - 1) % this.state.photos.length]}
+            onCloseRequest={() => this.setState({small:!this.state.small})}
+            onMovePrevRequest={() =>
+                this.setState({photoindex:(this.state.photoindex+this.state.photos.length-1)%this.state.photos.length})
+            }
+            onMoveNextRequest={() =>
+              this.setState({photoindex:(this.state.photoindex+1)%this.state.photos.length})
+            }
+            imageCaption={this.state.photos[this.state.photoindex].alt_description}
+      
+          />
+        
+        )
     
-  
-  
-        </Infinitescroll>
-  
-  
-      </div>
-  
-    );
-  
-  }else{
-    console.log(photoindex)
-    return (
-        <Lightbox
-        mainSrc={photos[photoindex].urls.thumb}
-        nextSrc={photos[(photoindex + 1) % photos.length]}
-        prevSrc={photos[(photoindex + photos.length - 1) % photos.length]}
-        onCloseRequest={() => setSmall(!small)}
-        onMovePrevRequest={() =>
-          setPhotoindex((photoindex + photos.length - 1) % photos.length)
-        }
-        onMoveNextRequest={() =>
-          
-          setPhotoindex((photoindex + 1) % photos.length)
-        }
-  
-      />
+      }
     
-    )
-
+    
+    }
   }
 
-
-}
 
 export default Fetching
